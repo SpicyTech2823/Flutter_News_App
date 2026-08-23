@@ -1,30 +1,25 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:news_app/main.dart';
+import 'package:news_app/domain/entities/news.dart';
+import 'package:news_app/domain/respositories/news_repository.dart';
+import 'package:news_app/domain/usecases/get_news.dart';
+import 'package:news_app/presentation/providers/news_provider.dart';
+
+class _FakeNewsRepository extends NewsRepository {
+  @override
+  Future<List<News>> getTopHeadlines(String country) async => const [];
+}
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('renders the news app home page', (WidgetTester tester) async {
+    final getNews = GetNews(_FakeNewsRepository());
+    final newsProvider = NewsProvider(getNews: getNews);
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
+    await tester.pumpWidget(NewsApp(newsProvider: newsProvider));
     await tester.pump();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(find.text('Latest News'), findsOneWidget);
+    expect(find.text('No news found.'), findsOneWidget);
   });
 }

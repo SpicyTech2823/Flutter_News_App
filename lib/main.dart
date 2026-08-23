@@ -1,31 +1,42 @@
 import 'package:flutter/material.dart';
 
+import 'data/datasources/news_remote_data_source.dart';
+import 'data/repositories/news_respository_impl.dart';
+import 'domain/usecases/get_news.dart';
+import 'presentation/pages/home_page.dart';
+import 'presentation/providers/news_provider.dart';
+
 void main() {
-  runApp(const MyApp());
+  // Create the remote data source.
+  final remoteDataSource = NewsRemoteDataSource();
+
+  // Create repository implementation.
+  final repository = NewsRepositoryImpl(remoteDataSource);
+
+  // Create the use case.
+  final getNews = GetNews(repository);
+
+  // Create the provider.
+  final newsProvider = NewsProvider(getNews: getNews);
+
+  runApp(NewsApp(newsProvider: newsProvider));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class NewsApp extends StatelessWidget {
+  final NewsProvider newsProvider;
+
+  const NewsApp({super.key, required this.newsProvider});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const Scaffold(
-        body: Center(
-          child: Text('Hello, World!'),
-        ),
-      )
+      debugShowCheckedModeBanner: false,
+
+      title: 'News App',
+
+      theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.blue),
+
+      home: HomePage(newsProvider: newsProvider),
     );
   }
 }
-
-
-
-
-
-
-
