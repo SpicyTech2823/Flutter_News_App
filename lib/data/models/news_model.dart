@@ -5,7 +5,7 @@ class NewsModel extends News{
     required super.title,
     required super.description,
     required super.imageUrl,
-    required super.articleUrl,
+    required super.url,
     required super.publishedAt,
   });
   // converts a JSON object into a NewsModel instance.
@@ -15,7 +15,7 @@ class NewsModel extends News{
       title: json['title'] ?? '',
       description: json['description'] ?? '',
       imageUrl: json['urlToImage'] ?? '',
-      articleUrl: json['url'] ?? '',
+      url: json['url'] ?? '',
       publishedAt: DateTime.parse(json['publishedAt'] ?? DateTime.now().toIso8601String()),
     );
   }

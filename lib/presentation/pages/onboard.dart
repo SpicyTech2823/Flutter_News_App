@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/presentation/pages/main.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 class OnboardPage extends StatelessWidget {
   const OnboardPage({super.key});
 
@@ -11,11 +14,7 @@ class OnboardPage extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Image.asset(
-                'assets/images/world.png',
-                width: 250,
-                height: 250,
-              ),
+              Image.asset('assets/images/world.png', width: 250, height: 250),
               const SizedBox(height: 30),
               const Text(
                 'Welcome to News App',
@@ -29,11 +28,13 @@ class OnboardPage extends StatelessWidget {
               ),
               const SizedBox(height: 30),
               ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                ),
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
                 onPressed: () {
-                  // Navigate to the next page or perform any action
+                  // Navigate to the HomePage when the button is pressed.
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Main()),
+                  );
                 },
                 child: const Text(
                   'Get Started',
