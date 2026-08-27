@@ -13,12 +13,15 @@ class OnboardPage extends StatelessWidget {
         body: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
+
             children: [
               Image.asset('assets/images/world.png', width: 250, height: 250),
               const SizedBox(height: 30),
               const Text(
                 'Welcome to News App',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: 24, fontWeight: FontWeight.bold
+                ),
               ),
               const SizedBox(height: 10),
               const Text(

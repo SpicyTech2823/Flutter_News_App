@@ -4,13 +4,19 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 // A data source class responsible for fetching news data from a remote API.
 class NewsRemoteDataSource {
-  Future<List<dynamic>> getTopHeadlines() async {
+  Future<List<NewsModel>> getTopHeadlines(String category) async {
     final response = await http.get(
-      Uri.parse('${ApiConstants.baseUrl}${ApiConstants.topHeadlinesEndpoint}?country=us&apiKey=${ApiConstants.apiKey}'),
+      Uri.parse(
+        '${ApiConstants.baseUrl}${ApiConstants.topHeadlinesEndpoint}'
+        '?country=us&category=$category&apiKey=${ApiConstants.apiKey}',
+      ),
     );
+    if (response.statusCode != 200) {
+      throw Exception('News API request failed (${response.statusCode}).');
+    }
     // Extract the "articles" array from the JSON response.
     final data = jsonDecode(response.body) as Map<String, dynamic>;
-    final articles = data['articles'] as List<dynamic>;
+    final articles = data['articles'] as List<dynamic>? ?? [];
     // Convert every JSON article into a NewsModel.
     return articles
         .map(
@@ -18,6 +24,6 @@ class NewsRemoteDataSource {
             article as Map<String, dynamic>,
           ),
         )
-        .toList();
+        .toList(growable: false);
   }
 }
