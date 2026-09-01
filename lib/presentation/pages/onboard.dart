@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/presentation/pages/main.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class OnboardPage extends StatelessWidget {
   const OnboardPage({super.key});
@@ -18,7 +17,7 @@ class OnboardPage extends StatelessWidget {
               Image.asset('assets/images/world.png', width: 250, height: 250),
               const SizedBox(height: 30),
               const Text(
-                'Welcome to News App',
+                'Welcome to OmniNews',
                 style: TextStyle(
                   fontSize: 24, fontWeight: FontWeight.bold
                 ),

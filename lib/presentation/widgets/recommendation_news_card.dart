@@ -6,7 +6,7 @@ import '../pages/news_detail_page.dart';
 class RecommendationNewsCard extends StatelessWidget {
   final News news;
 
-  const RecommendationNewsCard({super.key, required this.news});
+  const RecommendationNewsCard({super.key, required this.news, required Future<Null> Function() onTap});
 
   @override
   Widget build(BuildContext context) {

@@ -1,19 +1,80 @@
 import 'package:flutter/material.dart';
 import '../../domain/entities/news.dart';
+import '../../domain/respositories/bookmark_repository.dart';
 
-class NewsDetailPage extends StatelessWidget {
+class NewsDetailPage extends StatefulWidget {
   final News news;
-
   const NewsDetailPage({super.key, required this.news});
+  @override
+  State<NewsDetailPage> createState() => _NewsDetailPageState();
+}
+
+class _NewsDetailPageState extends State<NewsDetailPage> {
+  final BookmarkRepository _bookmarkRepository = BookmarkRepository();
+  bool _isBookmarked = false;
+  // Get the news article from the widget
+  News get news => widget.news;
+  @override
+  void initState() {
+    super.initState();
+    _isBookmarked = _bookmarkRepository.isBookmarked(widget.news.id);
+  }
+
+  // Toggle bookmark status for the news article
+  Future<void> _toggleBookmark() async {
+    await _bookmarkRepository.toggleBookmark(widget.news);
+    setState(() {
+      _isBookmarked = !_isBookmarked;
+    });
+    // Show a snackbar to indicate the action
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            _isBookmarked ? 'Added to bookmarks' : 'Removed from bookmarks',
+          ),
+          duration: const Duration(seconds: 1),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('News Detail'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
+        automaticallyImplyLeading: false,
+
+        leadingWidth: 100,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            IconButton(
+              style: IconButton.styleFrom(
+                backgroundColor: Colors.grey.shade200,
+                foregroundColor: Colors.black,
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: const Icon(Icons.arrow_back_ios_new),
+            ),
+            Text(
+              'News Details',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            IconButton(
+              style: IconButton.styleFrom(
+                backgroundColor: Colors.grey.shade200,
+                foregroundColor: Colors.black,
+              ),
+              onPressed: _toggleBookmark,
+              icon: Icon(
+                _isBookmarked ? Icons.bookmark : Icons.bookmark_add_outlined,
+                color: _isBookmarked ? Colors.blue : Colors.black,
+              ),
+            ),
+          ],
         ),
       ),
       body: SingleChildScrollView(
@@ -106,6 +167,10 @@ class NewsDetailPage extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                        foregroundColor: Colors.white,
+                      ),
                       onPressed: () {
                         // TODO: Open URL in browser
                       },

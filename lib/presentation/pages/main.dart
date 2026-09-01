@@ -9,7 +9,9 @@ import 'explore.dart';
 import 'bookmark.dart';
 
 class Main extends StatefulWidget {
-  const Main({super.key});
+  const Main({super.key, this.newsProvider});
+
+  final NewsProvider? newsProvider;
 
   @override
   State<Main> createState() => _MainState();
@@ -22,12 +24,14 @@ class _MainState extends State<Main> {
   @override
   void initState() {
     super.initState();
-    _pages = [
-      HomePage(
-        newsProvider: NewsProvider(
+    final provider =
+        widget.newsProvider ??
+        NewsProvider(
           getNews: GetNews(NewsRepositoryImpl(NewsRemoteDataSource())),
-        ),
-      ),
+        );
+
+    _pages = [
+      HomePage(newsProvider: provider),
       const Explore(),
       const Bookmark(),
     ];
@@ -44,11 +48,8 @@ class _MainState extends State<Main> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _pages[_currentIndex],
-      // Our custom bottom navigation widget.
       bottomNavigationBar: BottomNavBar(
         currentIndex: _currentIndex,
-
-        // Pass the function to BottomNavBar.
         onTap: _onNavigationItemSelected,
       ),
     );

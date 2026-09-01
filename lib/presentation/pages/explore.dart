@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-class Explore extends StatelessWidget {
+class Explore extends StatefulWidget {
   const Explore({super.key});
 
   @override
+  State<Explore> createState() => _ExploreState();
+}
+
+class _ExploreState extends State<Explore> {
+  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Center(
-        child: Text(
-          'Explore Page',
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-        ),
-      ),
-    );
+    return Container();
   }
 }

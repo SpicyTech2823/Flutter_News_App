@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import '../../domain/entities/news.dart';
 import '../pages/news_detail_page.dart';
 

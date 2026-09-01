@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/presentation/pages/explore.dart';
 import 'package:news_app/presentation/providers/news_provider.dart';
 import '../widgets/breaking_news_card.dart';
 import '../widgets/recommendation_news_card.dart';
@@ -19,7 +20,6 @@ class _HomePageState extends State<HomePage> {
 
     // Fetch news when the Home Screen opens.
     widget.newsProvider.fetchNews();
-
     // Listen for changes in the provider.
     widget.newsProvider.addListener(_refreshUI);
   }
@@ -35,7 +35,6 @@ class _HomePageState extends State<HomePage> {
   void dispose() {
     // Remove listener when the screen is destroyed.
     widget.newsProvider.removeListener(_refreshUI);
-
     super.dispose();
   }
 
@@ -43,7 +42,17 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final provider = widget.newsProvider;
     return Scaffold(
-      appBar: AppBar(title: const Text('News')),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: const Text(
+          'Latest News',
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Colors.blue,
+          ),
+        ),
+      ),
       body: _buildBody(provider),
     );
   }
@@ -56,7 +65,7 @@ class _HomePageState extends State<HomePage> {
       return Center(child: Text(provider.errorMessage!));
     }
     if (provider.newsList.isEmpty) {
-      return const Center(child: Text('No news available'));
+      return const Center(child: Text('No news found.'));
     }
     return RefreshIndicator(
       onRefresh: provider.fetchNews,
@@ -65,7 +74,10 @@ class _HomePageState extends State<HomePage> {
           SectionHeader(
             title: 'Breaking News',
             onViewAll: () {
-              // TODO: Navigate to all breaking news.
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const Explore()),
+              );
             },
           ),
 
@@ -86,7 +98,13 @@ class _HomePageState extends State<HomePage> {
               .map(
                 (news) => Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: RecommendationNewsCard(news: news),
+                  child: RecommendationNewsCard(
+                    news: news,
+                    onTap: () {
+                      // TODO: Handle recommendation tap.
+                      return Future.value();
+                    },
+                  ),
                 ),
               ),
         ],
