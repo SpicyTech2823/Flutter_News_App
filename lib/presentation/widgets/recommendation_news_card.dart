@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
 
 import '../../domain/entities/news.dart';
-import '../pages/news_detail_page.dart';
 
 class RecommendationNewsCard extends StatelessWidget {
   final News news;
+  final Future<void> Function() onTap;
 
-  const RecommendationNewsCard({super.key, required this.news, required Future<Null> Function() onTap});
+  const RecommendationNewsCard({
+    super.key,
+    required this.news,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => NewsDetailPage(news: news)),
-        );
-      },
+      onTap: onTap,
       child: Container(
         margin: const EdgeInsets.only(bottom: 12),
 

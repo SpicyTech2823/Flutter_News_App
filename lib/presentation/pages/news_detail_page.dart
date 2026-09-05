@@ -12,6 +12,7 @@ class NewsDetailPage extends StatefulWidget {
 class _NewsDetailPageState extends State<NewsDetailPage> {
   final BookmarkRepository _bookmarkRepository = BookmarkRepository();
   bool _isBookmarked = false;
+  bool _bookmarkChanged = false;
   // Get the news article from the widget
   News get news => widget.news;
   @override
@@ -19,12 +20,12 @@ class _NewsDetailPageState extends State<NewsDetailPage> {
     super.initState();
     _isBookmarked = _bookmarkRepository.isBookmarked(widget.news.id);
   }
-
   // Toggle bookmark status for the news article
   Future<void> _toggleBookmark() async {
     await _bookmarkRepository.toggleBookmark(widget.news);
     setState(() {
       _isBookmarked = !_isBookmarked;
+      _bookmarkChanged = true;
     });
     // Show a snackbar to indicate the action
     if (mounted) {
@@ -55,7 +56,7 @@ class _NewsDetailPageState extends State<NewsDetailPage> {
                 foregroundColor: Colors.black,
               ),
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.pop(context, _bookmarkChanged);
               },
               icon: const Icon(Icons.arrow_back_ios_new),
             ),

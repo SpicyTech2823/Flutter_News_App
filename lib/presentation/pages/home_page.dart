@@ -4,6 +4,7 @@ import 'package:news_app/presentation/providers/news_provider.dart';
 import '../widgets/breaking_news_card.dart';
 import '../widgets/recommendation_news_card.dart';
 import '../widgets/section_header.dart';
+import 'news_detail_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.newsProvider});
@@ -76,7 +77,9 @@ class _HomePageState extends State<HomePage> {
             onViewAll: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const Explore()),
+                MaterialPageRoute(
+                  builder: (context) => Explore(newsProvider: provider),
+                ),
               );
             },
           ),
@@ -100,9 +103,13 @@ class _HomePageState extends State<HomePage> {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: RecommendationNewsCard(
                     news: news,
-                    onTap: () {
-                      // TODO: Handle recommendation tap.
-                      return Future.value();
+                    onTap: () async {
+                      await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => NewsDetailPage(news: news),
+                        ),
+                      );
                     },
                   ),
                 ),

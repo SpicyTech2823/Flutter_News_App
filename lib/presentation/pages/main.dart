@@ -32,7 +32,7 @@ class _MainState extends State<Main> {
 
     _pages = [
       HomePage(newsProvider: provider),
-      const Explore(),
+      Explore(newsProvider: provider),
       const Bookmark(),
     ];
   }

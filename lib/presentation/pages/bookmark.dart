@@ -30,6 +30,7 @@ class _BookmarkState extends State<Bookmark> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text(
           'Bookmarks',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
@@ -50,6 +51,7 @@ class _BookmarkState extends State<Bookmark> {
               ),
             )
           : ListView.builder(
+              padding: EdgeInsets.all(16),
               itemCount: _bookmarkedNews.length,
               itemBuilder: (context, index) {
                 final news = _bookmarkedNews[index];
@@ -57,17 +59,17 @@ class _BookmarkState extends State<Bookmark> {
                   news: news,
                   key: ValueKey(news.id),
                   // Navigate to the news detail page when tapped
-                  // Navigate to the news detail page when tapped
                   onTap: () async {
-                    Navigator.push(
+                    final result = await Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => NewsDetailPage(news: news),
                       ),
-                    ).then((_) {
-                      // Reload bookmarks when returning from the detail page
+                    );
+                    // If the bookmark status changed, reload the bookmarks
+                    if (result == true) {
                       _loadBookmarkedNews();
-                    });
+                    }
                   },
                 );
               },

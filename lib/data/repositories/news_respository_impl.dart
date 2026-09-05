@@ -9,10 +9,12 @@ class NewsRepositoryImpl implements NewsRepository {
 
   @override
   Future<List<News>> getTopHeadlines(String category) async {
-    // Ask the data source for news.
-    final news = await remoteDataSource.getTopHeadlines(category);
+    final news = await remoteDataSource.getTopHeadlines('us', category);
+    return List<News>.from(news);
+  }
 
-    // Return the data as domain entities.
+  Future<List<News>> searchNews(String query) async {
+    final news = await remoteDataSource.searchNews(query);
     return List<News>.from(news);
   }
 }
