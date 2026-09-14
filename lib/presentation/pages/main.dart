@@ -7,6 +7,7 @@ import '../../domain/usecases/get_news.dart';
 import 'home_page.dart';
 import 'explore.dart';
 import 'bookmark.dart';
+import 'profile.dart';
 
 class Main extends StatefulWidget {
   const Main({super.key, this.newsProvider});
@@ -34,6 +35,7 @@ class _MainState extends State<Main> {
       HomePage(newsProvider: provider),
       Explore(newsProvider: provider),
       const Bookmark(),
+      const ProfileScreen(),
     ];
   }
 

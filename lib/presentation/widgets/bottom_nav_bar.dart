@@ -30,6 +30,11 @@ class BottomNavBar extends StatelessWidget {
           selectedIcon: Icon(Icons.bookmark,  color: Colors.lightBlue),
           label: 'Bookmark',
         ),
+        NavigationDestination(
+          icon: Icon(Icons.person_outline),
+          selectedIcon: Icon(Icons.person,  color: Colors.lightBlue),
+          label: 'Profile',
+        ),
       ],
     );
   }
