@@ -6,9 +6,9 @@ import 'package:news_app/service/auth_service.dart';
 import '../../providers/news_provider.dart';
 
 class AuthWrapper extends StatelessWidget {
-  const AuthWrapper({super.key, required this.newsProvider});
+  const AuthWrapper({super.key, this.newsProvider});
 
-  final NewsProvider newsProvider;
+  final NewsProvider? newsProvider;
 
   @override
   Widget build(BuildContext context) {

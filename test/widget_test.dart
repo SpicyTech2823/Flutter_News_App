@@ -12,14 +12,14 @@ class _FakeNewsRepository extends NewsRepository {
 }
 
 void main() {
-  testWidgets('renders the news app home page', (WidgetTester tester) async {
+  testWidgets('renders the onboarding page first', (WidgetTester tester) async {
     final getNews = GetNews(_FakeNewsRepository());
     final newsProvider = NewsProvider(getNews: getNews);
 
     await tester.pumpWidget(NewsApp(newsProvider: newsProvider));
     await tester.pump();
 
-    expect(find.text('Latest News'), findsOneWidget);
-    expect(find.text('No news found.'), findsOneWidget);
+    expect(find.text('Welcome to OmniNews'), findsOneWidget);
+    expect(find.text('Get Started'), findsOneWidget);
   });
 }

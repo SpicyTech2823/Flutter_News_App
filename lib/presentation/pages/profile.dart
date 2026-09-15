@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:news_app/presentation/pages/onboard.dart';
 import 'package:news_app/service/auth_service.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -85,8 +86,16 @@ class ProfileScreen extends StatelessWidget {
             onPressed: () async {
               Navigator.pop(ctx);
               await AuthService().signOut();
+              if (!context.mounted) return;
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (_) => const OnboardPage()),
+                (_) => false,
+              );
             },
-            child: const Text('Logout', style: TextStyle(color: Colors.redAccent)),
+            child: const Text(
+              'Logout',
+              style: TextStyle(color: Colors.redAccent),
+            ),
           ),
         ],
       ),
@@ -114,7 +123,9 @@ class _ProfileHeader extends StatelessWidget {
             CircleAvatar(
               radius: 55,
               backgroundColor: Colors.grey.shade300,
-              backgroundImage: imageUrl != null ? NetworkImage(imageUrl!) : null,
+              backgroundImage: imageUrl != null
+                  ? NetworkImage(imageUrl!)
+                  : null,
               child: imageUrl == null
                   ? const Icon(Icons.person, size: 55, color: Colors.white)
                   : null,
@@ -133,7 +144,11 @@ class _ProfileHeader extends StatelessWidget {
                     shape: BoxShape.circle,
                     border: Border.all(color: Colors.white, width: 2),
                   ),
-                  child: const Icon(Icons.camera_alt, size: 16, color: Colors.white),
+                  child: const Icon(
+                    Icons.camera_alt,
+                    size: 16,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
@@ -213,7 +228,12 @@ class _ProfileMenuItem extends StatelessWidget {
           onTap: onTap,
         ),
         if (showDivider)
-          Divider(height: 1, indent: 56, endIndent: 16, color: Colors.grey.shade200),
+          Divider(
+            height: 1,
+            indent: 56,
+            endIndent: 16,
+            color: Colors.grey.shade200,
+          ),
       ],
     );
   }

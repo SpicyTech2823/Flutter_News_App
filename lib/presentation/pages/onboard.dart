@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:news_app/presentation/pages/auth/auth_wrapper.dart';
 import 'package:news_app/presentation/pages/main.dart';
 import 'package:news_app/presentation/providers/news_provider.dart';
 
@@ -31,12 +33,13 @@ class OnboardPage extends StatelessWidget {
             ElevatedButton(
               style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
               onPressed: () {
-                // Navigate to the HomePage when the button is pressed.
-                Navigator.push(
+                final nextPage = FirebaseAuth.instance.currentUser == null
+                    ? AuthWrapper(newsProvider: newsProvider)
+                    : Main(newsProvider: newsProvider);
+
+                Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => Main(newsProvider: newsProvider),
-                  ),
+                  MaterialPageRoute(builder: (context) => nextPage),
                 );
               },
               child: const Text(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/core/local_storage/hive_service.dart';
 import 'package:news_app/domain/usecases/get_news.dart';
-import 'package:news_app/presentation/pages/auth/auth_wrapper.dart';
+import 'package:news_app/presentation/pages/onboard.dart';
 import 'package:news_app/presentation/providers/news_provider.dart';
 
 import 'data/datasources/news_remote_data_source.dart';
@@ -11,9 +11,7 @@ import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await HiveService.init();
   runApp(const NewsApp());
 }
@@ -33,7 +31,7 @@ class NewsApp extends StatelessWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: AuthWrapper(newsProvider: provider),
+      home: OnboardPage(newsProvider: provider),
     );
   }
 }
