@@ -1,5 +1,20 @@
 # News App
 
+## Screenshots
+
+<p align="center">
+  <img src="assets/screenshot/Screenshot%202026-09-18%20232631.png" width="180" alt="News App screenshot 1" />
+  <img src="assets/screenshot/Screenshot%202026-09-18%20232649.png" width="180" alt="News App screenshot 2" />
+  <img src="assets/screenshot/Screenshot%202026-09-18%20232709.png" width="180" alt="News App screenshot 3" />
+  <img src="assets/screenshot/Screenshot%202026-09-18%20232736.png" width="180" alt="News App screenshot 4" />
+</p>
+
+<p align="center">
+  <img src="assets/screenshot/Screenshot%202026-09-18%20232744.png" width="180" alt="News App screenshot 5" />
+  <img src="assets/screenshot/Screenshot%202026-09-18%20232752.png" width="180" alt="News App screenshot 6" />
+  <img src="assets/screenshot/Screenshot%202026-09-18%20232759.png" width="180" alt="News App screenshot 7" />
+</p>
+
 ## Firebase Authentication setup
 
 The app uses Firebase Authentication with email and password. Before running it,
