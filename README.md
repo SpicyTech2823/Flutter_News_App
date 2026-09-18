@@ -71,38 +71,6 @@ flutter run -d <device-id>
 
 ---
 
-# 📸 Application Screens
-
-Add your application screenshots here.
-
-Example:
-
-```text
-screenshots/
-├── login.png
-├── register.png
-├── home.png
-├── explore.png
-├── news_detail.png
-└── bookmark.png
-```
-
-Then add them to this README:
-
-```markdown
-## 📸 Screenshots
-
-| Login | Home |
-|---|---|
-| ![Login](screenshots/login.png) | ![Home](screenshots/home.png) |
-
-| Explore | Bookmark |
-|---|---|
-| ![Explore](screenshots/explore.png) | ![Bookmark](screenshots/bookmark.png) |
-```
-
----
-
 # 🔄 Application Flow
 
 ```text
